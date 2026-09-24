@@ -21,6 +21,20 @@ app.get('/products', (req, res, next) => {
 });
 
 /**
+ * Retorna um produto pelo seu ID
+ */
+app.get('/product/:id', (req, res, next) => {
+    inventory.SearchProductById({ id: req.params.id }, (err, product) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send({ error: 'Something failed :(' });
+        } else {
+            res.json(product);
+        }
+    });
+});
+
+/**
  * Consulta o frete de envio no ShippingService
  */
 app.get('/shipping/:cep', (req, res, next) => {
